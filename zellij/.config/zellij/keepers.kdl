@@ -1,0 +1,39 @@
+layout {
+    // Compact bar
+    pane size=1 borderless=true {
+        plugin location="zellij:compact-bar"
+    }
+
+    // Main pane
+    pane
+    pane split_direction="vertical" {
+        pane focus=true
+        pane command="btm"
+    }
+
+    // floating_panes max_panes=1 toggle=false focus=false {
+    //     pane command="btm"
+    // }
+
+    // status bar
+    pane size=1 borderless=true {
+        plugin location="zellij:status-bar"
+    }
+
+
+    // floating panes
+    swap_floating_layout {
+        floating_panes max_panes=1 {
+            pane
+        }
+        floating_panes max_panes=2 {
+            pane x=0
+            pane x="50%"
+        }
+        floating_panes max_panes=3 {
+            pane x=0 width="33%"
+            pane x="33%" width="33%"
+            pane x="66%" width="33%"
+        }
+    }
+}

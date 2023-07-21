@@ -1,0 +1,115 @@
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+
+[core]
+    editor = nvim
+	pager = delta --diff-so-fancy
+	# pager = diff-so-fancy | less --tabs=4 -RFX
+    excludesfile = /Users/elkxj/.gitignore-global
+    attributesfile = ~/.gitattributes
+
+[alias]
+    dft = difftool
+    nuke = !git-nuke
+    cr = "!f() { git fetch -p && for branch in $(git branch -vv | grep ': gone]' | awk '{print $1}'); do git branch -D $branch; done }; f"
+    pnv = push --no-verify
+    pnvf = push --no-verify --force
+
+[color]
+	ui = true
+    diff = auto
+    status = auto
+    branch = auto
+    showbranch = auto
+
+[color "branch"]
+	local = yellow
+	remote = green
+    current = yellow reverse
+
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+    newHighlight = green bold 22
+
+[color "diff"]
+	old = red bold
+	new = green bold
+	meta = 11
+	frag = magenta bold
+	func = 146 bold
+	whitespace = red reverse
+
+[color "status"]
+	added = green
+	changed = yellow
+	untracked = cyan
+
+[delta]
+    syntax-theme = "Dracula"
+    line-numbers = true
+    side-by-side = true
+    navigate = true  # use n and N to move between diff sections
+
+[diff]
+    tool = difftastic
+    colorMoved = default
+
+[difftool]
+        prompt = false
+
+[difftool "difftastic"]
+        cmd = difft "$LOCAL" "$REMOTE"
+
+[interactive]
+    diffFilter = delta --color-only --diff-so-fancy
+	# diffFilter = diff-so-fancy --patch
+
+[merge]
+    conflictstyle = diff3
+
+[user]
+    email = lecoqjacob@gmail.com
+    name = Jacob LeCoq
+	signingkey = 59D19656A0FC3F75
+
+[hub]
+    protocol = ssh
+
+[commit]
+	gpgsign = true
+    template = ~/.git-commit-template
+
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+[push]
+    autoSetupRemote = true
+
+[format]
+    pretty = %C(yellow)%h%Creset %C(magenta)%cd%Creset %an <%ae> %C(cyan)%s%Creset%C(yellow)%d%Creset%n
+
+[init]
+	defaultBranch = main
+
+[pager]
+    difftool = true
+
+# https://github.com/GitAlias/gitalias
+[include]
+	path = ~/.gitalias.txt
+
+# Alternate identities
+[include]
+	path = ~/.gitidentities/identities
+
+[url "ssh://git@github.com/"]
+  insteadOf = https://github.com/

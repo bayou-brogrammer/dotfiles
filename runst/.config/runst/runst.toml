@@ -1,0 +1,37 @@
+[global]
+    log_verbosity = "trace"
+    startup_notification = true
+    geometry = "1920x23+0+0"
+    wrap_content = true
+    font = "Monospace 10"
+    template = """
+    [{{app_name}}] <b>{{summary}}</b>\
+    {% if body %} {{body}}{% endif %} \
+    {% if now(timestamp=true) - timestamp > 60 %} \
+        ({{ (now(timestamp=true) - timestamp) | humantime }} ago)\
+    {% endif %}\
+    {% if unread_count > 1 %} ({{unread_count}}){% endif %}
+    """
+
+[urgency_low]
+    background = "#191a21"
+    foreground = "#6272a4"
+    timeout = 2
+    text = "low"
+
+[urgency_normal]
+    background = "#191a21"
+    foreground = "#bd93f9"
+    timeout = 10
+    auto_clear = true
+    text = "normal"
+    custom_commands = [
+        # { filter = '{ "app_name":"weenotify" }', command = 'aplay -D default /home/orhun/audio/notif.wav' },
+        { filter = '{ "app_name":"notify-send" }', command = 'aplay -D default /home/orhun/audio/notif.wav' }
+    ]
+
+[urgency_critical]
+    background = "#191a21"
+    foreground = "#ff79c6"
+    timeout = 0
+    text = "critical"
