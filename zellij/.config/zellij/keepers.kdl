@@ -5,21 +5,26 @@ layout {
     }
 
     // Main pane
-    pane
     pane split_direction="vertical" {
-        pane focus=true
-        pane command="btm"
+        pane {
+          cwd "~/projects/js/keepers/keepers-native"
+        }
+        pane cwd="~/projects/js/keepers"
     }
 
-    // floating_panes max_panes=1 toggle=false focus=false {
-    //     pane command="btm"
-    // }
+    pane split_direction="vertical" {
+        pane {
+          cwd "~/projects/js/keepers/keepers-backend"
+        }
+        pane {
+          cwd "~/projects/js/keepers/keepers-backend/functions"
+        }
+    }
 
     // status bar
     pane size=1 borderless=true {
         plugin location="zellij:status-bar"
     }
-
 
     // floating panes
     swap_floating_layout {
