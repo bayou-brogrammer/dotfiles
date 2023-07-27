@@ -12,14 +12,6 @@ precmd_functions+=(set_win_title)
 
 fpath=(/usr/share/zsh/site-functions $fpath)
 
-## Plugins section: Enable fish style features
-# Use syntax highlighting
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# Use autosuggestion
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-# Use history substring search
-source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-
 # Use fzf
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
@@ -31,6 +23,26 @@ source /usr/share/fzf/completion.zsh
 # Advanced command-not-found hook
 [[ -e /usr/share/doc/find-the-command/ftc.zsh ]] && source /usr/share/doc/find-the-command/ftc.zsh
 
+lazynvm() {
+    unset -f nvm node npm
+    export NVM_DIR=~/.nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+}
+
+nvm() {
+    lazynvm
+    nvm $@
+}
+
+node() {
+    lazynvm
+    node $@
+}
+
+npm() {
+    lazynvm
+    npm $@
+}
 
 ## Options section
 setopt correct                                                  # Auto correct mistakes
@@ -66,9 +78,9 @@ zstyle ':completion:*' cache-path ~/.cache/zcache
 # automatically load bash completion functions
 autoload -U +X bashcompinit && bashcompinit
 
-HISTFILE=~/.zhistory
 HISTSIZE=50000
 SAVEHIST=10000
+HISTFILE=~/.zhistory
 
 ## Keys
 # Use emacs key bindings
@@ -231,9 +243,9 @@ alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/p
 alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
 
 # Help people new to Arch
+alias please='sudo'
 alias apt='man pacman'
 alias apt-get='man pacman'
-alias please='sudo'
 alias tb='nc termbin.com 9999'
 alias helpme='cht.sh --shell'
 alias pacdiff='sudo -H DIFFPROG=meld pacdiff'
@@ -247,6 +259,8 @@ alias jctl="journalctl -p 3 -xb"
 # Recent installed packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 
+alias lg="lazygit"
+
 # Load Mcfly
 export MCFLY_FUZZY=true
 export MCFLY_RESULTS=20
@@ -255,18 +269,76 @@ export MCFLY_RESULTS_SORT=LAST_RUN
 eval "$(mcfly init zsh)"
 
 ###########################
+# ENV VARS
+###########################
+function add_env_var() {
+    local var=$1
+    local value=$2
+    export $var=$value
+}
+
+add_env_var "SHELL" "zsh"
+add_env_var "EDITOR" "nvim"
+add_env_var "ZELLIJ_RUNNER_LAYOUTS_DIR" $HOME/.config/zellij/layouts
+add_env_var "ZELLIJ_RUNNER_BANNERS_DIR" $HOME/.config/zellij/banners
+add_env_var "ZELLIJ_RUNNER_ROOT_DIR" $HOME/projects
+add_env_var "ZELLIJ_RUNNER_IGNORE_DIRS" node_modules,target
+add_env_var "ZELLIJ_RUNNER_MAX_DIRS_DEPTH" 3
+
+###########################
+# ZELLIJ
+###########################
+
+add_env_var ZELLIJ_AUTO_ATTACH true
+
+ZJ_SESSIONS=$(zellij list-sessions)
+NO_SESSIONS=$(echo "${ZJ_SESSIONS}" | wc -l)
+
+alias zellij="zellij"
+
+if [ "${NO_SESSIONS}" -ge 2 ]; then
+    zellij attach \
+    "$(echo "${ZJ_SESSIONS}" | sk)"
+else
+    zellij attach -c
+fi
+
+alias zel="zellij"
+alias z="zellij attach -c"
+
+###########################
+# OCAML
+###########################
+
+eval $(opam env)
+
+###########################
+# GCLOUD
+###########################
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/jlecoq/projects/js/keepers/keepers-backend/google-cloud-sdk/path.zsh.inc' ]; then . '/home/jlecoq/projects/js/keepers/keepers-backend/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/jlecoq/projects/js/keepers/keepers-backend/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/jlecoq/projects/js/keepers/keepers-backend/google-cloud-sdk/completion.zsh.inc'; fi
+
+
+###########################
 # ZPLUG
 ###########################
 
 source ~/.zplug/init.zsh
 
-# zplug "woefe/wbase.zsh"
-# zplug "woefe/git-prompt.zsh", use:"{git-prompt.zsh,examples/wprompt.zsh}"
-# zplug "sharkdp/fd", from:gh-r, as:command, rename-to:fd, use:"*x86_64-unknown-linux-gnu.tar.gz"
-
 # Supports oh-my-zsh plugins and the like
-zplug "zsh-users/zsh-completions"
 zplug "plugins/git",   from:oh-my-zsh
+
+zplug "lukechilds/zsh-nvm"
+zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "zsh-users/zsh-history-substring-search", defer:3
+
+zplug "woefe/vi-mode.zsh"
+# zplug "woefe/git-prompt.zsh", use:"{git-prompt.zsh,examples/wprompt.zsh}", defer:2
 
 # Can manage local plugins
 # zplug "~/.zsh", from:local

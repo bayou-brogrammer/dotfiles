@@ -1,0 +1,10 @@
+{
+    "AppNotifications": true,
+    "PluginRepo": true,
+    "ReadAllNotificationsButton": true,
+    "ThemeRepo": true,
+    "BDFDB": true,
+    "ZeresPluginLibrary": true,
+    "ActivityIcons": true,
+    "Animations": true
+}
