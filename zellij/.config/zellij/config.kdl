@@ -1,12 +1,14 @@
 // If you'd like to override the default keybindings completely, be sure to change "keybinds" to "keybinds clear-defaults=true"
-keybinds {
+keybinds clear-defaults=true {
     normal {
         // uncomment this and adjust key if using copy_on_select=false
         // bind "Alt c" { Copy; }
     }
+
     locked {
         bind "Ctrl g" { SwitchToMode "Normal"; }
     }
+
     resize {
         bind "Ctrl n" { SwitchToMode "Normal"; }
         bind "h" "Left" { Resize "Increase Left"; }
@@ -110,68 +112,79 @@ keybinds {
         bind "Ctrl s" { SwitchToMode "Scroll"; }
         bind "d" { Detach; }
     }
-    tmux {
-        bind "[" { SwitchToMode "Scroll"; }
-        bind "Ctrl b" { Write 2; SwitchToMode "Normal"; }
-        bind "\"" { NewPane "Down"; SwitchToMode "Normal"; }
-        bind "%" { NewPane "Right"; SwitchToMode "Normal"; }
-        bind "z" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
-        bind "c" { NewTab; SwitchToMode "Normal"; }
-        bind "," { SwitchToMode "RenameTab"; }
-        bind "p" { GoToPreviousTab; SwitchToMode "Normal"; }
-        bind "n" { GoToNextTab; SwitchToMode "Normal"; }
-        bind "Left" { MoveFocus "Left"; SwitchToMode "Normal"; }
-        bind "Right" { MoveFocus "Right"; SwitchToMode "Normal"; }
-        bind "Down" { MoveFocus "Down"; SwitchToMode "Normal"; }
-        bind "Up" { MoveFocus "Up"; SwitchToMode "Normal"; }
-        bind "h" { MoveFocus "Left"; SwitchToMode "Normal"; }
-        bind "l" { MoveFocus "Right"; SwitchToMode "Normal"; }
-        bind "j" { MoveFocus "Down"; SwitchToMode "Normal"; }
-        bind "k" { MoveFocus "Up"; SwitchToMode "Normal"; }
-        bind "o" { FocusNextPane; }
-        bind "d" { Detach; }
-    }
+    // tmux {
+    //     bind "[" { SwitchToMode "Scroll"; }
+    //     bind "Ctrl b" { Write 2; SwitchToMode "Normal"; }
+    //     bind "\"" { NewPane "Down"; SwitchToMode "Normal"; }
+    //     bind "%" { NewPane "Right"; SwitchToMode "Normal"; }
+    //     bind "z" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
+    //     bind "c" { NewTab; SwitchToMode "Normal"; }
+    //     bind "," { SwitchToMode "RenameTab"; }
+    //     bind "p" { GoToPreviousTab; SwitchToMode "Normal"; }
+    //     bind "n" { GoToNextTab; SwitchToMode "Normal"; }
+    //     bind "Left" { MoveFocus "Left"; SwitchToMode "Normal"; }
+    //     bind "Right" { MoveFocus "Right"; SwitchToMode "Normal"; }
+    //     bind "Down" { MoveFocus "Down"; SwitchToMode "Normal"; }
+    //     bind "Up" { MoveFocus "Up"; SwitchToMode "Normal"; }
+    //     bind "h" { MoveFocus "Left"; SwitchToMode "Normal"; }
+    //     bind "l" { MoveFocus "Right"; SwitchToMode "Normal"; }
+    //     bind "j" { MoveFocus "Down"; SwitchToMode "Normal"; }
+    //     bind "k" { MoveFocus "Up"; SwitchToMode "Normal"; }
+    //     bind "o" { FocusNextPane; }
+    //     bind "d" { Detach; }
+    // }
     shared_except "locked" {
-        bind "Ctrl g" { SwitchToMode "Locked"; }
         bind "Ctrl q" { Detach; }
-        bind "Alt n" { NewPane; }
-        bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
-        bind "Alt l" "Alt Right" { MoveFocusOrTab "Right"; }
-        bind "Alt j" "Alt Down" { MoveFocus "Down"; }
-        bind "Alt k" "Alt Up" { MoveFocus "Up"; }
-        bind "Alt =" "Alt +" { Resize "Increase"; }
+        bind "Ctrl g" { SwitchToMode "Locked"; }
+
         bind "Alt -" { Resize "Decrease"; }
+        bind "Alt =" "Alt +" { Resize "Increase"; }
+
+        bind "Alt k" "Alt Up" { MoveFocus "Up"; }
+        bind "Alt j" "Alt Down" { MoveFocus "Down"; }
+        bind "Alt h" "Alt Left" { MoveFocus "Left"; }
+        bind "Alt l" "Alt Right" { MoveFocus "Right"; }
+        
+        // Panes
+        bind "Alt n" { NewPane; }
+        
+        // Tabs
+        bind "Alt N" { NewTab; }
+        bind "Alt X" { CloseTab; }
+        bind "Alt H" { GoToNextTab; }
+        bind "Alt L" { GoToPreviousTab; }
     }
     shared_except "normal" "locked" {
         bind "Enter" "Esc" { SwitchToMode "Normal"; }
     }
     shared_except "pane" "locked" {
-        bind "Ctrl p" { SwitchToMode "Pane"; }
+        bind "Alt P" { SwitchToMode "Pane"; }
     }
     shared_except "resize" "locked" {
-        bind "Ctrl n" { SwitchToMode "Resize"; }
+        bind "Alt R" { SwitchToMode "Resize"; }
     }
     shared_except "scroll" "locked" {
-        bind "Ctrl s" { SwitchToMode "Scroll"; }
+        bind "Alt S" { SwitchToMode "Scroll"; }
     }
     shared_except "session" "locked" {
-        bind "Ctrl o" { SwitchToMode "Session"; }
+        bind "Alt O" { SwitchToMode "Session"; }
     }
     shared_except "tab" "locked" {
-        bind "Ctrl t" { SwitchToMode "Tab"; }
+        bind "Alt T" { SwitchToMode "Tab"; }
     }
     shared_except "move" "locked" {
-        bind "Ctrl h" { SwitchToMode "Move"; }
+        bind "Alt M" { SwitchToMode "Move"; }
     }
-    shared_except "tmux" "locked" {
-        bind "Ctrl b" { SwitchToMode "Tmux"; }
-    }
+
+    // shared_except "tmux" "locked" {
+    //     bind "Ctrl b" { SwitchToMode "Tmux"; }
+    // }
 }
 
 plugins {
+    strider { path "strider"; }
     tab-bar { path "tab-bar"; }
     status-bar { path "status-bar"; }
-    strider { path "strider"; }
     compact-bar { path "compact-bar"; }
 }
 
@@ -180,67 +193,36 @@ plugins {
 // Options:
 //   - detach (Default)
 //   - quit
-//
 on_force_close "detach"
 
-//  Send a request for a simplified ui (without arrow fonts) to plugins
+//  Send a request r a simplified ui (without arrow fonts) to plugins
 //  Options:
 //    - true
 //    - false (Default)
-//
 simplified_ui false
 
 // Choose the path to the default shell that zellij will use for opening new panes
 // Default: $SHELL
 //
-default_shell "fish"
+// default_shell "fish"
 
 // Toggle between having pane frames around the panes
 // Options:
 //   - true (default)
 //   - false
-//
-// pane_frames true
-
-// Define color themes for Zellij
-// For more examples, see: https://github.com/zellij-org/zellij/tree/main/example/themes
-// Once these themes are defined, one of them should to be selected in the "theme" section of this file
-//
-themes {
-    dracula {
-        fg 248 248 242
-        bg 40 42 54
-        red 255 85 85
-        green 80 250 123
-        yellow 241 250 140
-        blue 98 114 164
-        magenta 255 121 198
-        orange 255 184 108
-        cyan 139 233 253
-        black 0 0 0
-        white 255 255 255
- }
-}
+pane_frames true
 
 // Choose the theme that is specified in the themes section.
 // Default: default
-//
-theme "dracula"
-
-
-// The folder in which Zellij will look for layouts
-//
-layout_dir "/home/jlecoq/.config/zellij"
+theme "default"
 
 // The name of the default layout to load on startup
 // Default: "default"
-//
 default_layout "main"
 
 // Choose the mode that zellij uses when starting up.
 // Default: normal
-//
-// default_mode "locked"
+default_mode "normal"
 
 // Toggle enabling the mouse mode.
 // On certain configurations, or terminals this could
@@ -248,8 +230,7 @@ default_layout "main"
 // Options:
 //   - true (default)
 //   - false
-//
-// mouse_mode false
+mouse_mode true
 
 // Configure the scroll back buffer size
 // This is the number of lines zellij stores for each pane in the scroll back
@@ -267,7 +248,7 @@ default_layout "main"
 //
 // copy_command "xclip -selection clipboard" // x11
 // copy_command "wl-copy"                    // wayland
-// copy_command "pbcopy"                     // osx
+// copy_command "pbcopy"                        // osx
 
 // Choose the destination for copied text
 // Allows using the primary selection buffer (on x11/wayland) instead of the system clipboard.
@@ -275,26 +256,16 @@ default_layout "main"
 // Options:
 //   - system (default)
 //   - primary
-//
-// copy_clipboard "primary"
+copy_clipboard "system"
 
 // Enable or disable automatic copy (and clear) of selection when releasing mouse
 // Default: true
-//
-// copy_on_select false
+copy_on_select true
 
 // Path to the default editor to use to edit pane scrollbuffer
 // Default: $EDITOR or $VISUAL
 //
 // scrollback_editor "/usr/bin/vim"
 
-// When attaching to an existing session with other users,
-// should the session be mirrored (true)
-// or should each user have their own cursor (false)
-// Default: false
-//
-// mirror_session true
-
-// The folder in which Zellij will look for themes
-//
-// theme_dir "/path/to/my/theme_dir"
+theme_dir "/home/jlecoq/.config/zellij/themes"
+layout_dir "/home/jlecoq/.config/zellij/layouts"
