@@ -147,7 +147,9 @@ keybinds clear-defaults=true {
         
         // Panes
         bind "Alt n" { NewPane; }
-        
+        bind "Alt f" { ToggleFloatingPanes;}
+        bind "Alt x" { CloseFocus; SwitchToMode "Normal"; }
+
         // Tabs
         bind "Alt N" { NewTab; }
         bind "Alt X" { CloseTab; }
