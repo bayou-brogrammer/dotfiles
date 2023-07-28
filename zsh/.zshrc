@@ -228,12 +228,12 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias dir='dir --color=auto'
 alias vdir='vdir --color=auto'
-alias grep='grep --color=auto'
-alias fgrep='grep -F --color=auto'
-alias egrep='grep -E --color=auto'
+alias grep='rg --color=auto'
+alias fgrep='rg -F --color=auto'
+alias egrep='rg -E --color=auto'
 alias hw='hwinfo --short'                          # Hardware Info
 alias big "expac -H M '%m\t%n' | sort -h | nl"     # Sort installed packages according to size in MB (expac must be installed)
-alias gitpkg='pacman -Q | grep -i "\-git" | wc -l' # List amount of -git packages
+alias gitpkg='pacman -Q | rg -i "\-git" | wc -l' # List amount of -git packages
 alias ip='ip -color'
 
 # Get fastest mirrors
@@ -261,6 +261,10 @@ alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 
 alias lg="lazygit"
 
+# ZSH
+alias reload="source ~/.zshrc"
+alias zshconfig="nvim ~/.zshrc"
+
 # Load Mcfly
 export MCFLY_FUZZY=true
 export MCFLY_RESULTS=20
@@ -286,25 +290,36 @@ add_env_var "ZELLIJ_RUNNER_IGNORE_DIRS" node_modules,target
 add_env_var "ZELLIJ_RUNNER_MAX_DIRS_DEPTH" 3
 
 ###########################
+# NVIM
+###########################
+alias nvconfig="nvim ~/.config/nvim"
+
+###########################
 # ZELLIJ
 ###########################
 
 add_env_var ZELLIJ_AUTO_ATTACH true
 
-ZJ_SESSIONS=$(zellij list-sessions)
-NO_SESSIONS=$(echo "${ZJ_SESSIONS}" | wc -l)
-
-alias zellij="zellij"
-
-if [ "${NO_SESSIONS}" -ge 2 ]; then
-    zellij attach \
-    "$(echo "${ZJ_SESSIONS}" | sk)"
-else
-    zellij attach -c
-fi
+# ZJ_SESSIONS=$(zellij list-sessions)
+# NO_SESSIONS=$(echo "${ZJ_SESSIONS}" | wc -l)
+#
+# if [ "${NO_SESSIONS}" -ge 2 ]; then
+#     zellij attach \
+#     "$(echo "${ZJ_SESSIONS}" | sk)"
+# else
+#     zellij
+# fi
+eval "$(zellij setup --generate-auto-start zsh)"
 
 alias zel="zellij"
-alias z="zellij attach -c"
+alias za="zellij attach -c"
+alias zconfig="nvim ~/.config/zellij"
+
+###########################
+# Zoxide
+###########################
+
+eval "$(zoxide init zsh)"
 
 ###########################
 # OCAML
