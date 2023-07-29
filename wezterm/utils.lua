@@ -1,3 +1,4 @@
+
 return {
   merge = function(tables)
     local res = {}

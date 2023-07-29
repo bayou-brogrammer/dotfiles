@@ -4,13 +4,17 @@
 -- lower level configuration and more robust one. (which-key will
 -- automatically pick-up stored data by this setting.)
 return {
+  -- first key is the mode
   n = {
+    -- second key is the lefthand side of the map
+    -- mappings seen under group name "Buffer"
     ["<leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
     ["<leader>bD"] = {
       function()
-        require("astronvim.utils.status").heirline.buffer_picker(
-          function(bufnr) require("astronvim.utils.buffer").close(bufnr) end
-        )
+        require("astronvim.utils.status").heirline.buffer_picker(function(bufnr)
+          require("astronvim.utils.buffer").close(
+            bufnr)
+        end)
       end,
       desc = "Pick to close",
     },
@@ -22,61 +26,25 @@ return {
       function() require("astronvim.utils.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1)) end,
       desc = "Previous buffer",
     },
-    ["<leader>b"] = { name = "Buffers" },
-    ["<leader>r"] = { ":AstroReload<cr>", desc = "Reload AstroNvim" },
-    ["<esc>"] = { ":nohl<cr>", desc = "No highlight" },
-    ["<C-s>"] = { ":w!<cr>", desc = "Save file" },
+
     ["<C-q>"] = { ":qa!<cr>", desc = "Exit" },
-    ["<C-f>"] = { function() require("telescope.builtin").find_files() end, desc = "Find files" },
-    ["<C-k>"] = { function() require("telescope.builtin").live_grep() end, desc = "Find words" },
-    ["<C-m>"] = { ":Mason<cr>", desc = "Open Mason installer" },
-    ["<C-d>"] = { "<C-d>zz", desc = "Scroll down" },
+    ["<C-s>"] = { ":w!<cr>", desc = "Save file" },
     ["<C-u>"] = { "<C-u>zz", desc = "Scroll up" },
-    ["<A-z>"] = { ":set wrap!<cr>", desc = "Toggle word wrap" },
-    ["[x"] = { ":GitConflictPrevConflict<cr>", desc = "Previous Git conflict" },
-    ["]x"] = { ":GitConflictNextConflict<cr>", desc = "Next Git conflict" },
-    ["cx"] = { ":GitConflictListQf<cr>", desc = "List Git conflicts" },
-    ["co"] = { ":GitConflictChooseOurs<cr>", desc = "Git conflict - choose ours" },
-    ["ct"] = { ":GitConflictChooseTheirs<cr>", desc = "Git conflict - choose theirs" },
-    ["cb"] = { ":GitConflictChooseBoth<cr>", desc = "Git conflict - choose both" },
-    ["c0"] = { ":GitConflictChooseNone<cr>", desc = "Git conflict - choose none" },
-    ["<leader>U"] = { ":UndotreeToggle<cr>", desc = "Toggle undo history" },
-    ["<leader>gg"] = { ":Git<cr>", desc = "Open Git" },
-    ["<leader>m"] = { ":MarkdownPreview<cr>", desc = "Show markdown preview" },
+    ["<C-d>"] = { "<C-d>zz", desc = "Scroll down" },
+    ["<C-k>"] = { function() require("telescope.builtin").live_grep() end, desc = "Find words" },
+    ["<C-f>"] = { function() require("telescope.builtin").find_files() end, desc = "Find files" },
+
+    ["<leader>b"] = { name = "Buffers" },
     ["<leader>z"] = { ":ZenMode<cr>", desc = "Toggle Zen mode" },
-    ["<leader>uR"] = { ":CellularAutomaton make_it_rain<cr>", desc = "Make it rain" },
-    ["<leader>uG"] = { ":CellularAutomaton game_of_life<cr>", desc = "Game of life" },
-    ["<leader>fs"] = { ":Silicon<cr>", desc = "Save image" },
-    ["<leader>fM"] = { ":Telescope media_files<cr>", desc = "Find media files" },
+    ["<leader>U"] = { ":UndotreeToggle<cr>", desc = "Toggle undo history" },
 
-    --------------------
-    -- TOGGLE TERM
-    --------------------
-    ["<leader>td"] = {
-      function()
-        local utils = require "astronvim.utils"
-        utils.toggle_term_cmd "bpytop"
-      end, desc = "ToggleTerm bpytop"
-    },
+    -- Term
+    ["<F12>"] = { ":ToggleTerm size=30 direction=horizontal<cr>", desc = "Toggle terminal" },
+    ["<leader>|"] = { ":ToggleTerm size=30 direction=vertical<cr>", desc = "Open terminal - vertical" },
+    ["<leader>\\"] = { ":ToggleTerm size=30 direction=horizontal<cr>", desc = "Open terminal -  horizontal" },
 
-    ["<leader>tf"] = {
-      desc = "ToggleTerm Floating",
-      function()
-        local utils = require "astronvim.utils"
-        utils.toggle_term_cmd "zellij"
-      end,
-    },
-    ["<F12>"] = {
-      desc = "ToggleTerm Floating",
-      function()
-        local utils = require "astronvim.utils"
-        utils.toggle_term_cmd "zellij"
-      end,
-    },
-
-    -- ["<F12>"] = { ":ToggleTerm<cr>", desc = "Toggle terminal" },
-    ["<leader>;"] = { ":ToggleTerm size=30 direction=horizontal<cr>", desc = "Toggle terminal" },
-    -- ["<leader>;"] = { ":2ToggleTerm size=30 direction=horizontal<cr>", desc = "Open terminal with tab" },
+    -- Keys
+    -- ["<esc>"] = { ":nohl<cr>", desc = "No highlight" },
   },
   i = {
     ["<C-s>"] = { "<esc>:w!<cr>", desc = "Save file" },
@@ -89,6 +57,5 @@ return {
   },
   t = {
     ["<C-j>"] = { "<C-\\><C-N>", desc = "Switch to normal mode" },
-    ["<F12>"] = { "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" }
   },
 }
