@@ -1,3 +1,6 @@
 [submodule "kitty/.config/kitty/kitty-themes"]
 	path = kitty/.config/kitty/kitty-themes
 	url = https://github.com/dexpota/kitty-themes
+[submodule "zpwr"]
+	path = zpwr
+	url = https://github.com/lecoqjacob/zpwr.git

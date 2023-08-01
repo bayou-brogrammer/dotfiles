@@ -1,44 +1,53 @@
 layout {
-    // Compact bar
-    pane size=1 borderless=true {
-        plugin location="zellij:compact-bar"
-    }
-
-    // Main pane
-    pane split_direction="vertical" {
-        pane {
-          cwd "~/projects/js/keepers/keepers-native"
+    tab {
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
         }
-        pane cwd="~/projects/js/keepers"
-    }
 
-    pane split_direction="vertical" {
-        pane {
-          cwd "~/projects/js/keepers/keepers-backend"
+        // Main Pane
+        pane
+        
+        pane size=1 borderless=true {
+            plugin location="zellij:compact-bar"
         }
-        pane {
-          cwd "~/projects/js/keepers/keepers-backend/functions"
+        pane size=1 borderless=true {
+            plugin location="zellij:status-bar"
         }
-    }
+        
+        floating_panes {
+            pane {
+                x 0
+                y 0
+                width "50%"
+                height "50%"
+                cwd "/home/yendor/projects/keepers/keepers-backend/"
+            }
 
-    // status bar
-    pane size=1 borderless=true {
-        plugin location="zellij:status-bar"
+            pane {
+                y 0
+                x "50%"
+                width "50%"
+                height "50%"
+                cwd "/home/yendor/projects/keepers/keepers-backend/functions/"
+            }
+
+            pane {
+                x 0
+                y "50%"
+                width "50%"
+                height "50%"
+                cwd "/home/yendor/projects/keepers"
+            }
+        }
     }
 
     // floating panes
     swap_floating_layout {
-        floating_panes max_panes=1 {
-            pane
-        }
-        floating_panes max_panes=2 {
-            pane x=0
-            pane x="50%"
-        }
-        floating_panes max_panes=3 {
-            pane x=0 width="33%"
-            pane x="33%" width="33%"
-            pane x="66%" width="33%"
+        floating_panes max_panes=4 {
+            pane x=0 y=0 width="50%" height="50%"
+            pane x="50%" y=0 width="50%" height="50%"
+            pane x=0 y="50%" width="50%" height="50%"
+            pane x="50%" y="50%" width="50%" height="50%"
         }
     }
 }

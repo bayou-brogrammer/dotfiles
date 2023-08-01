@@ -269,5 +269,5 @@ copy_on_select true
 //
 // scrollback_editor "/usr/bin/vim"
 
-theme_dir "/home/jlecoq/.config/zellij/themes"
-layout_dir "/home/jlecoq/.config/zellij/layouts"
+theme_dir "/home/yendor/.config/zellij/themes"
+layout_dir "/home/yendor/.config/zellij/layouts"

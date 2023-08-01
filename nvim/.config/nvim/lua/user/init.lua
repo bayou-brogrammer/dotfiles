@@ -26,7 +26,6 @@ return {
     underline = true,
   },
 
-
   lsp = {
     formatting = {
       format_on_save = {
@@ -34,10 +33,8 @@ return {
         allow_filetypes = {},
         ignore_filetypes = {},
       },
-      disabled = { -- disable formatting capabilities for the listed language servers
-        -- disable lua_ls formatting capability if you want to use StyLua to format your lua code
-        -- "lua_ls",
-      },
+      -- disable formatting capabilities for the listed language servers
+      disabled = { "lua_ls" },
       timeout_ms = 1000, -- default format timeout
       filter = function(client)
         -- disable formatting for lua_ls
@@ -54,18 +51,21 @@ return {
         return true
       end
     },
-    -- enable servers that you already have installed without mason
-    servers = {
-      -- "pyright"
-    },
+    servers = {}, -- "pyright"
     ocamllsp = {
       get_language_id = function(_, ftype)
         return ftype
       end,
     },
+    config = {
+      eslint = function(opts)
+        opts.root_dir = require("lspconfig.util").root_pattern("package.json", ".eslintrc.json", ".eslintrc.js")
+        return opts
+      end,
+    },
   },
+  plugins = {},
 
-  -- Configure require("lazy").setup() options
   lazy = {
     defaults = { lazy = true },
     performance = {

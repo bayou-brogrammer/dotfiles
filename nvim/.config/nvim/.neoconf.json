@@ -15,23 +15,6 @@
   "lspconfig": {
     "lua_ls": {
       "Lua.format.enable": false
-    },
-    "tsserver": {
-      "tsserver.format.enable": false,
-      "settings": {
-        "typescript": {
-          "inlayHints": {
-            "includeInlayParameterNameHints": "all",
-            "includeInlayParameterNameHintsWhenArgumentMatchesName": false,
-            "includeInlayFunctionParameterTypeHints": true,
-            "includeInlayVariableTypeHints": true,
-            "includeInlayVariableTypeHintsWhenTypeMatchesName": false,
-            "includeInlayPropertyDeclarationTypeHints": true,
-            "includeInlayFunctionLikeReturnTypeHints": true,
-            "includeInlayEnumMemberValueHints": true
-          }
-        }
-      }
     }
   }
 }

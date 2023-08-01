@@ -1,0 +1,110 @@
+{
+    "settings": {
+        "buttons": {
+            "custom": {
+                "enabled": false,
+                "frames": [
+                    {
+                        "anim": "",
+                        "start": ""
+                    },
+                    {
+                        "anim": "",
+                        "start": ""
+                    },
+                    {
+                        "anim": "",
+                        "start": ""
+                    }
+                ],
+                "page": 0
+            },
+            "delay": 0.1,
+            "duration": "0.1",
+            "enabled": true,
+            "name": "slide-right",
+            "page": 1,
+            "selectors": "",
+            "sequence": "fromLast",
+            "timing": "linear"
+        },
+        "lists": {
+            "custom": {
+                "enabled": false,
+                "frames": [
+                    {
+                        "anim": "",
+                        "start": ""
+                    },
+                    {
+                        "anim": "",
+                        "start": ""
+                    },
+                    {
+                        "anim": "",
+                        "start": ""
+                    }
+                ],
+                "page": 0
+            },
+            "delay": "0.005",
+            "duration": "0.2",
+            "enabled": true,
+            "name": "slide-right",
+            "page": 0,
+            "selectors": "",
+            "sequence": "fromFirst",
+            "timing": "linear"
+        },
+        "messages": {
+            "custom": {
+                "enabled": false,
+                "frames": [
+                    {
+                        "anim": "",
+                        "start": ""
+                    },
+                    {
+                        "anim": "",
+                        "start": ""
+                    },
+                    {
+                        "anim": "",
+                        "start": ""
+                    }
+                ],
+                "page": 0
+            },
+            "delay": 0.055,
+            "duration": 0.3,
+            "enabled": false,
+            "limit": 30,
+            "name": "brick-down",
+            "page": 0,
+            "sending": {
+                "custom": {
+                    "enabled": false,
+                    "frames": [
+                        {
+                            "anim": "",
+                            "start": ""
+                        },
+                        {
+                            "anim": "",
+                            "start": ""
+                        },
+                        {
+                            "anim": "",
+                            "start": ""
+                        }
+                    ],
+                    "page": 0
+                },
+                "enabled": "onsent",
+                "name": "brick-up",
+                "page": 0
+            },
+            "timing": "linear"
+        }
+    }
+}
