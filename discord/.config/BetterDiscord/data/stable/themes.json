@@ -1,8 +1,8 @@
 {
     "dracula": false,
     "Dark Matter": false,
-    "ClearVision": true,
-    "Discord+": false,
+    "ClearVision": false,
+    "Discord+": true,
     "SoftX": false,
     "Zelk": false
 }
