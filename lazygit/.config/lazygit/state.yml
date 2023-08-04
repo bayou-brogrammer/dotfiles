@@ -1,0 +1,9 @@
+lastupdatecheck: 0
+recentrepos:
+    - /home/yendor/projects/ocaml/rl2023_ocaml
+    - /home/yendor/projects/keepers/keepers-status-board
+    - /home/yendor/dotfiles/zpwr
+startuppopupversion: 5
+customcommandshistory:
+    - q
+hidecommandlog: false

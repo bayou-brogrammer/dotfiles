@@ -20,7 +20,7 @@ return {
   { import = "astrocommunity.diagnostics.trouble-nvim" },
 
   --
-  -- { import = "astrocommunity.editing-support.yanky-nvim" },
+  { import = "astrocommunity.editing-support.yanky-nvim" },
   { import = "astrocommunity.editing-support.vim-move" },
   { import = "astrocommunity.editing-support.refactoring-nvim" },
   { import = "astrocommunity.editing-support.telescope-undo-nvim" },

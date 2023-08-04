@@ -18,7 +18,7 @@ return {
   },
 
   -- Set colorscheme to use
-  colorscheme = "catppuccin", -- "kanagawa", "nightfox", "oxocarbon", "github", "default"
+  colorscheme = "nightfox", -- "kanagawa", "nightfox", "oxocarbon", "github", "default"
 
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
