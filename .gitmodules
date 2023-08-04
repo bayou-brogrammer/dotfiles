@@ -4,3 +4,6 @@
 [submodule "zpwr"]
 	path = zpwr
 	url = https://github.com/lecoqjacob/zpwr.git
+[submodule "helix/.config/helix/themes"]
+	path = helix/.config/helix/themes
+	url = https://github.com/CptPotato/helix-themes
