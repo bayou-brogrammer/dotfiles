@@ -85,7 +85,7 @@
 [user]
     email = lecoqjacob@gmail.com
     name = Jacob LeCoq
-	signingkey = D956994976453A51
+	signingkey = 9ACFF95F46551790
 
 [hub]
     protocol = ssh

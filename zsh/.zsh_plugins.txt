@@ -30,7 +30,7 @@ rummik/zsh-tailf
 mattmc3/zman
 agkozak/zsh-z
 rupa/z              # some bash plugins work too
-
+icatalina/zsh-navi-plugin
 
 ### Local Plugins
 #
@@ -38,7 +38,7 @@ rupa/z              # some bash plugins work too
 # host your own custom plugins.
 #
 ###
-$ZDOTDIR/.aliases
+$ZDOTDIR/custom/zsh_aliases
 #$ZDOTDIR/custom/plugins/example
 
 ### Local Plugins with Variables

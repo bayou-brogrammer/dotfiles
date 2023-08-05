@@ -118,3 +118,6 @@ if [[ -n "${key[Alt-Right]}" ]]; then
     bindkey -M viins "${key[Alt-Right]}" forward-word
     bindkey -M vicmd "${key[Alt-Right]}" forward-word
 fi
+
+# use ctrl-space
+bindkey '^ ' navi_widget

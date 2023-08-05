@@ -79,7 +79,7 @@ local options = {
   },
   g = {
     mapleader = " ",                                                    -- Set leader key.
-    maplocalleader = ",",                                               -- Set default local leader key.
+    maplocalleader = " ",                                               -- Set default local leader key.
     autoformat_enabled = true,                                          -- Enable or disable auto formatting at start (lsp.formatting.format_on_save must be enabled).
     autopairs_enabled = true,                                           -- Enable autopairs at start.
     inlay_hints_enabled = true,                                         -- Enable LSP inlay_hints at startup.

@@ -46,6 +46,17 @@ function M.notify(msg, type, opts)
   end)
 end
 
+--- regex used for matching a valid URL/URI string
+M.url_matcher =
+"\\v\\c%(%(h?ttps?|ftp|file|ssh|git)://|[a-z]+[@][a-z]+[.][a-z]+:)%([&:#*@~%_\\-=?!+;/0-9a-z]+%(%([.;/?]|[.][.]+)[&:#*@~%_\\-=?!+/0-9a-z]+|:\\d+|,%(%(%(h?ttps?|ftp|file|ssh|git)://|[a-z]+[@][a-z]+[.][a-z]+:)@![0-9a-z]+))*|\\([&:#*@~%_\\-=?!+;/.0-9a-z]*\\)|\\[[&:#*@~%_\\-=?!+;/.0-9a-z]*\\]|\\{%([&:#*@~%_\\-=?!+;/.0-9a-z]*|\\{[&:#*@~%_\\-=?!+;/.0-9a-z]*})\\})+"
+
+--- Delete the syntax matching rules for URLs/URIs if set.
+function M.delete_url_effect()
+  for _, match in ipairs(vim.fn.getmatches()) do
+    if match.group == "HighlightURL" then vim.fn.matchdelete(match.id) end
+  end
+end
+
 --- Add syntax matching rules for highlighting URLs/URIs.
 function M.set_url_effect()
   M.delete_url_effect()
