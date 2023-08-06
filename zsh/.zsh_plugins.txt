@@ -3,43 +3,13 @@
 # .zsh_plugins.txt - antidote plugins file
 #
 
-### Overview
-#
-# The `.zsh_plugins.txt` file is used by antidote to configure Zsh bundles. Bundles are
-# just a fancy way of referring to Zsh utilities, frameworks, prompts, or plugins.
-# `.zsh_plugins.txt` is used by antidote to generate a static `.zsh_plugins.zsh` file,
-# which can then be sourced in your `.zshrc`. You can use this file as a starting point
-# for your own config. Strip out instructional comments (ie: lines beginning with a '#')
-# and any plugins you don't need, then add what you like and make it yours!
-#
-# NOTE: Order matters in this file! Some bundles need to be last, and others are
-# prerequisites. Read the documentation for the plugins you use to ensure proper
-# configuration.
-#
-###
-
-
-### Regular Plugins
-#
-# Plugins are the simplest kind of bundles. You can point to a full git URL, or if you
-# assume GitHub.com, then you can use the user/repo shorthand.
-#
-###
-https://github.com/peterhurford/up.zsh
-rummik/zsh-tailf
-mattmc3/zman
-agkozak/zsh-z
-rupa/z              # some bash plugins work too
-icatalina/zsh-navi-plugin
-
 ### Local Plugins
 #
 # Plugins don't have to come from GitHub. You can also use local files or directories to
 # host your own custom plugins.
 #
 ###
-$ZDOTDIR/custom/zsh_aliases
-#$ZDOTDIR/custom/plugins/example
+$ZDOTDIR/plugins/load.zsh
 
 ### Local Plugins with Variables
 #
@@ -59,6 +29,23 @@ $ZDOTDIR/custom/zsh_aliases
 # $ZSH_CUSTOM/plugins/ruby
 
 
+### Regular Plugins
+#
+# Plugins are the simplest kind of bundles. You can point to a full git URL, or if you
+# assume GitHub.com, then you can use the user/repo shorthand.
+#
+###
+https://github.com/peterhurford/up.zsh
+rummik/zsh-tailf
+mattmc3/zman
+agkozak/zsh-z
+rupa/z              # some bash plugins work too
+icatalina/zsh-navi-plugin
+
+# Arch Linux Package helper
+iloginow/zsh-paci
+
+
 ### Prompts
 #
 # You can make certain themes available to the built-in Zsh prompt command using the
@@ -76,7 +63,7 @@ $ZDOTDIR/custom/zsh_aliases
 ###
 
 # Use kind:fpath for prompts you want available to promptinit.
-romkatv/powerlevel10k
+romkatv/powerlevel10k kind:fpath
 
 ### Utilities
 #
@@ -120,47 +107,24 @@ ohmyzsh/ohmyzsh path:plugins/copybuffer
 ohmyzsh/ohmyzsh path:plugins/copyfile
 ohmyzsh/ohmyzsh path:plugins/copypath
 ohmyzsh/ohmyzsh path:plugins/extract
-ohmyzsh/ohmyzsh path:plugins/magic-enter
+
+ohmyzsh/ohmyzsh path:plugins/gh
+ohmyzsh/ohmyzsh path:plugins/fzf
+ohmyzsh/ohmyzsh path:plugins/git
+ohmyzsh/ohmyzsh path:plugins/gitfast
+ohmyzsh/ohmyzsh path:plugins/zoxide
+ohmyzsh/ohmyzsh path:plugins/archlinux
+ohmyzsh/ohmyzsh path:plugins/git-extras
+
+ohmyzsh/ohmyzsh path:plugins/zsh-interactive-cd
+ohmyzsh/ohmyzsh path:plugins/zsh-navigation-tools
+
+ohmyzsh/ohmyzsh path:plugins/cp
+ohmyzsh/ohmyzsh path:plugins/sudo
+ohmyzsh/ohmyzsh path:plugins/ssh-agent
 ohmyzsh/ohmyzsh path:plugins/fancy-ctrl-z
+ohmyzsh/ohmyzsh path:plugins/command-not-found
 ohmyzsh/ohmyzsh path:plugins/colored-man-pages
-
-### Framework: Prezto
-#
-# Prezto is another popular Zsh framework. You might choose to use parts of it in your
-# config alongside/instead of OMZ. Prezto has some key differences from OMZ. For
-# starters, it doesn't have a lib directory and it calls its plugins 'modules'. Its
-# modules also often have functions directories that need autoloaded. And, because it's
-# meant to be used as an integrated framework, Prezto modules don't operate well as
-# cherry-picking independent plugins, so using Prezto with antidote is not recommended
-# for anyone but the most advanced Zsh users.
-#
-###
-
-# Prezto can be difficult to assemble because it's so interdependent.
-# Use at your own risk.
-# sorin-ionescu/prezto path:modules/helper/functions kind:autoload
-# sorin-ionescu/prezto path:modules/helper
-# sorin-ionescu/prezto path:modules/environment
-# sorin-ionescu/prezto path:modules/terminal
-# sorin-ionescu/prezto path:modules/editor
-# sorin-ionescu/prezto path:modules/directory
-# sorin-ionescu/prezto path:modules/git/functions kind:autoload
-# sorin-ionescu/prezto path:modules/git
-
-# And Prezto has tons more...
-# sorin-ionescu/prezto path:modules/history
-# sorin-ionescu/prezto path:modules/spectrum
-# sorin-ionescu/prezto path:modules/utility/functions kind:autoload
-# sorin-ionescu/prezto path:modules/utility
-# sorin-ionescu/prezto path:modules/completion
-# sorin-ionescu/prezto path:modules/history-substring-search
-# sorin-ionescu/prezto path:modules/prompt/functions kind:autoload
-# sorin-ionescu/prezto path:modules/prompt
-# sorin-ionescu/prezto path:modules/python
-# sorin-ionescu/prezto path:modules/python/functions kind:autoload
-# sorin-ionescu/prezto path:modules/osx conditional:ismacos
-# sorin-ionescu/prezto path:modules/osx/functions kind:autoload conditional:ismacos
-
 
 ### Framework: zsh-utils
 #
@@ -172,7 +136,6 @@ ohmyzsh/ohmyzsh path:plugins/colored-man-pages
 ###
 belak/zsh-utils path:history
 belak/zsh-utils path:utility
-belak/zsh-utils path:editor
 belak/zsh-utils path:prompt
 
 ### Deferred Plugins
@@ -212,7 +175,9 @@ zsh-users/zsh-completions path:src kind:fpath
 # fully populated. Use zsh-utils for its completion plugin.
 
 belak/zsh-utils path:completion
+belak/zsh-utils path:history
 olets/zsh-abbr    kind:defer
+jeffreytse/zsh-vi-mode
 
 ### Final Plugins
 #
@@ -225,3 +190,6 @@ olets/zsh-abbr    kind:defer
 mattmc3/zfunctions
 zsh-users/zsh-autosuggestions kind:defer
 zsh-users/zsh-history-substring-search
+
+# Last thing is load the prompt
+$ZDOTDIR/plugins/prompts/load.zsh

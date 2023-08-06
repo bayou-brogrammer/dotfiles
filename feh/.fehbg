@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-feh --no-fehbg --image-bg "#252b39" --bg-max /home/jlecoq/images/kanagawa.png

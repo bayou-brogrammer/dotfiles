@@ -3,6 +3,25 @@
 # .zshrc - Zsh file loaded on interactive shell sessions.
 #
 
+##########
+# CACHE
+##########
+
+# Set ZSH_CACHE_DIR to the path where cache files should be created
+# or else we will use the default cache/
+if [[ -z "$ZSH_CACHE_DIR" ]]; then
+    ZSH_CACHE_DIR="$ZSH/cache"
+fi
+
+# Make sure $ZSH_CACHE_DIR is writable, otherwise use a directory in $HOME
+if [[ ! -w "$ZSH_CACHE_DIR" ]]; then
+    ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+fi
+
+# Create cache and completions dir and add to $fpath
+mkdir -p "$ZSH_CACHE_DIR/completions"
+(( ${fpath[(Ie)"$ZSH_CACHE_DIR/completions"]} )) || fpath=("$ZSH_CACHE_DIR/completions" $fpath)
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -16,12 +35,21 @@ if [ -d "$HOME/.local/bin" ]; then
     export PATH=$HOME/.local/bin:$PATH
 fi
 
+##########
+# DEFER
+##########
+source ~/zsh-defer/zsh-defer.plugin.zsh
+
+######################
 # Load ZSH Internals
+######################
 fpath+=("/usr/share/zsh/site-functions")
-source "$ZDOTDIR/custom/zsh_options"
-source "$ZDOTDIR/custom/zsh_load_functions"
-source "$ZDOTDIR/custom/zsh_keys"
-source "$ZDOTDIR/custom/zsh_aliases"
+
+######################
+# Source custom
+######################
+source "$ZDOTDIR/config/load.zsh"
+zsh-defer source "$ZDOTDIR/plugins/load.zsh"
 
 # Autoload functions you might want to use with antidote.
 ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
@@ -56,20 +84,3 @@ fi
 
 # Source your static plugins file.
 source $zsh_plugins
-
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/yendor/projects/keepers/keepers-backend/google-cloud-sdk/path.zsh.inc' ]; then . '/home/yendor/projects/keepers/keepers-backend/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/yendor/projects/keepers/keepers-backend/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/yendor/projects/keepers/keepers-backend/google-cloud-sdk/completion.zsh.inc'; fi
-
-
-# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
-[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
-
-# fnm
-export PATH="/home/yendor/.local/share/fnm:$PATH"
-eval "`fnm env`"
