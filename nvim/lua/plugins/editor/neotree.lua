@@ -8,7 +8,7 @@ return {
     cmd = "Neotree",
     enabled = function()
       local has_mini = is_available "mini.files"
-      local has_telescope_files = is_available "telescope.nvim" and require("telescope").extensions.file_browser ~= nil
+      local has_telescope_files = is_available "telescope.nvim" and require("telescope").extensions['file_browser'] ~= nil
       return not has_mini and not has_telescope_files
     end,
     init = function() vim.g.neo_tree_remove_legacy_commands = true end,

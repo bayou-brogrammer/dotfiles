@@ -14,13 +14,6 @@ $ZDOTDIR/plugins/zsh-plugin-fd.plugin.zsh kind:defer
 $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh kind:defer
 $ZDOTDIR/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh kind:defer
 
-# Arch Linux command-not-found support, you must have package pkgfile installed
-# https://wiki.archlinux.org/index.php/Pkgfile#.22Command_not_found.22_hook
-/usr/share/doc/pkgfile/command-not-found.zsh kind:defer
-
-# # Advanced command-not-found hook
-/usr/share/doc/find-the-command/ftc.zsh kind:defer
-
 # Use fzf
 /usr/share/fzf/key-bindings.zsh kind:defer
 /usr/share/fzf/completion.zsh kind:defer
@@ -162,6 +155,7 @@ belak/zsh-utils path:utility
 # certain plugins, this can greatly increase your zsh startup speed.
 #
 ###
+
 # Syntax highlighting
 #zsh-users/zsh-syntax-highlighting kind:defer
 zdharma-continuum/fast-syntax-highlighting kind:defer

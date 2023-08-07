@@ -23,6 +23,7 @@ return {
   --]]
   {
     "rmagatti/auto-session",
+    lazy = false,
     opts = {
       log_level = vim.log.levels.ERROR,
       auto_session_suppress_dirs = { "~/", "~/Downloads", "/" },

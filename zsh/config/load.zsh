@@ -7,8 +7,16 @@ function set_win_title(){
 }
 precmd_functions+=(set_win_title)
 
+export BAT_THEME="Monokai Extended Light"
+
+
 #ASDF
 zsh-defer $(. "$HOME/.asdf/asdf.sh")
+
+# Zoxide
+if (( ! $+commands[zoxide] )); then
+    eval "$(zoxide init zsh)"
+fi
 
 ##################
 # Load Internals
@@ -25,9 +33,11 @@ export MCFLY_INTERFACE_VIEW=BOTTOM
 export MCFLY_RESULTS_SORT=LAST_RUN
 eval "$(mcfly init zsh)"
 
-# fnm
-export PATH="/home/yendor/.local/share/fnm:$PATH"
-eval "`fnm env`"
+if (( ! $+commands[fnm] )); then
+    # fnm
+    export PATH="/home/yendor/.local/share/fnm:$PATH"
+    eval "`fnm env`"
+fi
 
-export BAT_THEME="Monokai Extended Light"
+
 
