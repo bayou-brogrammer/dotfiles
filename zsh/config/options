@@ -3,6 +3,16 @@
 # zsh_options - Zsh Options
 #
 
+
+HISTSIZE=50000
+SAVEHIST=10000
+HISTFILE=~/.zhistory
+
+setopt INC_APPEND_HISTORY
+setopt EXTENDED_HISTORY
+
+export HISTTIMEFORMAT="[%F %T] "
+
 ## Options section
 setopt extended_glob
 setopt correct                                                  # Auto correct mistakes
@@ -20,8 +30,6 @@ setopt pushd_ignore_dups
 setopt pushdminus
 
 # Completion.
-autoload -Uz compinit
-compinit
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       # Case insensitive tab completion
 zstyle ':completion:*' rehash true                              # automatically find new executables in path
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"         # Colored completion (different colors for dirs/files/etc)
@@ -37,8 +45,3 @@ zstyle ':completion:*' cache-path ~/.cache/zcache
 
 # automatically load bash completion functions
 autoload -U +X bashcompinit && bashcompinit
-autoload -Uz promptinit && promptinit
-
-HISTFILE=~/.zhistory
-HISTSIZE=50000
-SAVEHIST=10000

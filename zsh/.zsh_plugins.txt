@@ -9,7 +9,21 @@
 # host your own custom plugins.
 #
 ###
-$ZDOTDIR/plugins/load.zsh
+$ZDOTDIR/plugins/magic_enter.plugin.zsh kind:defer
+$ZDOTDIR/plugins/zsh-plugin-fd.plugin.zsh kind:defer
+$ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh kind:defer
+$ZDOTDIR/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh kind:defer
+
+# Arch Linux command-not-found support, you must have package pkgfile installed
+# https://wiki.archlinux.org/index.php/Pkgfile#.22Command_not_found.22_hook
+/usr/share/doc/pkgfile/command-not-found.zsh kind:defer
+
+# # Advanced command-not-found hook
+/usr/share/doc/find-the-command/ftc.zsh kind:defer
+
+# Use fzf
+/usr/share/fzf/key-bindings.zsh kind:defer
+/usr/share/fzf/completion.zsh kind:defer
 
 ### Local Plugins with Variables
 #
@@ -35,12 +49,12 @@ $ZDOTDIR/plugins/load.zsh
 # assume GitHub.com, then you can use the user/repo shorthand.
 #
 ###
-https://github.com/peterhurford/up.zsh
-rummik/zsh-tailf
 mattmc3/zman
 agkozak/zsh-z
-rupa/z              # some bash plugins work too
+rummik/zsh-tailf
 icatalina/zsh-navi-plugin
+https://github.com/peterhurford/up.zsh
+rupa/z              # some bash plugins work too
 
 # Arch Linux Package helper
 iloginow/zsh-paci
@@ -102,7 +116,6 @@ romkatv/zsh-bench kind:path
 #
 ####
 ohmyzsh/ohmyzsh path:lib/clipboard.zsh
-ohmyzsh/ohmyzsh path:lib/clipboard.zsh
 ohmyzsh/ohmyzsh path:plugins/copybuffer
 ohmyzsh/ohmyzsh path:plugins/copyfile
 ohmyzsh/ohmyzsh path:plugins/copypath
@@ -125,6 +138,7 @@ ohmyzsh/ohmyzsh path:plugins/ssh-agent
 ohmyzsh/ohmyzsh path:plugins/fancy-ctrl-z
 ohmyzsh/ohmyzsh path:plugins/command-not-found
 ohmyzsh/ohmyzsh path:plugins/colored-man-pages
+ohmyzsh/ohmyzsh path:plugins/history-substring-search
 
 ### Framework: zsh-utils
 #
@@ -136,7 +150,6 @@ ohmyzsh/ohmyzsh path:plugins/colored-man-pages
 ###
 belak/zsh-utils path:history
 belak/zsh-utils path:utility
-belak/zsh-utils path:prompt
 
 ### Deferred Plugins
 #
@@ -153,7 +166,6 @@ belak/zsh-utils path:prompt
 #zsh-users/zsh-syntax-highlighting kind:defer
 zdharma-continuum/fast-syntax-highlighting kind:defer
 
-
 ### Completions
 #
 # You may want to add some additional completions to Zsh. Completions look in your fpath
@@ -166,6 +178,11 @@ zdharma-continuum/fast-syntax-highlighting kind:defer
 #   autoload -Uz compinit && compinit
 #
 ###
+
+### Local Completions
+$ZDOTDIR/completions/load.zsh
+$ASDF_DIR/completions kind:fpath
+/usr/share/zsh/site-functions kind:fpath
 
 # zsh-users/zsh-completions is a popular plugin for adding supplemental completions.
 # We combine the `path:` and `kind:fpath` annotations here:
@@ -188,8 +205,6 @@ jeffreytse/zsh-vi-mode
 
 # These popular core plugins should be loaded at the end
 mattmc3/zfunctions
-zsh-users/zsh-autosuggestions kind:defer
-zsh-users/zsh-history-substring-search
 
 # Last thing is load the prompt
 $ZDOTDIR/plugins/prompts/load.zsh

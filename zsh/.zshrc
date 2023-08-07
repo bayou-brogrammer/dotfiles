@@ -38,18 +38,12 @@ fi
 ##########
 # DEFER
 ##########
-source ~/zsh-defer/zsh-defer.plugin.zsh
-
-######################
-# Load ZSH Internals
-######################
-fpath+=("/usr/share/zsh/site-functions")
+autoload -Uz ~/zsh-defer/zsh-defer
 
 ######################
 # Source custom
 ######################
 source "$ZDOTDIR/config/load.zsh"
-zsh-defer source "$ZDOTDIR/plugins/load.zsh"
 
 # Autoload functions you might want to use with antidote.
 ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
@@ -81,6 +75,8 @@ autoload -Uz $fpath[-1]/antidote
 if [[ ! $zsh_plugins -nt ${zsh_plugins:r}.txt ]]; then
     (antidote bundle <${zsh_plugins:r}.txt >|$zsh_plugins)
 fi
+
+autoload -Uz compinit && compinit
 
 # Source your static plugins file.
 source $zsh_plugins

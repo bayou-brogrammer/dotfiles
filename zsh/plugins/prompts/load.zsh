@@ -1,3 +1,3 @@
+autoload -Uz promptinit && promptinit
 source "$ZDOTDIR/plugins/prompts/powerline.plugin.zsh"
 
-autoload -Uz promptinit && promptinit

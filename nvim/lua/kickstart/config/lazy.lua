@@ -1,63 +1,58 @@
 local git_version = vim.fn.system { "git", "--version" }
 if vim.api.nvim_get_vvar "shell_error" ~= 0 then
-	vim.api.nvim_err_writeln("Git doesn't appear to be available...\n\n" .. git_version)
+  vim.api.nvim_err_writeln("Git doesn't appear to be available...\n\n" .. git_version)
 end
-
-local major, min, _ =
-	---@diagnostic disable-next-line: deprecated
-	unpack(vim.tbl_map(tonumber, vim.split(git_version:match "%d+%.%d+%.%d", "%.")))
+local major, min, _ = unpack(vim.tbl_map(tonumber, vim.split(git_version:match "%d+%.%d+%.%d", "%.")))
 local modern_git = major > 2 or (major == 2 and min >= 19)
 
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
-if not (vim.uv).fs_stat(lazypath) then
-	local clone = { "git", "clone", modern_git and "--filter=blob:none" or nil }
-	local output = vim.fn.system(
-		vim.list_extend(
-			clone,
-			{ "--branch=stable", "https://github.com/folke/lazy.nvim.git", lazypath }
-		)
-	)
+if not (vim.uv or vim.loop).fs_stat(lazypath) then -- TODO: REMOVE vim.loop WHEN DROPPING SUPPORT FOR Neovim v0.9
+  local clone = { "git", "clone", modern_git and "--filter=blob:none" or nil }
+  
+  local output =
+    vim.fn.system(vim.list_extend(clone, { "--branch=stable", "https://github.com/folke/lazy.nvim.git", lazypath }))
+  if vim.api.nvim_get_vvar "shell_error" ~= 0 then
+    vim.api.nvim_err_writeln("Error cloning lazy.nvim repository...\n\n" .. output)
+  end
 
-	if vim.api.nvim_get_vvar "shell_error" ~= 0 then
-		vim.api.nvim_err_writeln("Error cloning lazy.nvim repository...\n\n" .. output)
-	end
-
-	local oldcmdheight = vim.opt.cmdheight:get()
-	vim.opt.cmdheight = 1
-	vim.notify "Please wait while plugins are installed..."
-
-	vim.api.nvim_create_autocmd("User", {
-		desc = "Load Mason and Treesitter after Lazy installs plugins",
-		once = true,
-		pattern = "LazyInstall",
-		callback = function()
-			vim.cmd.bw()
-			vim.opt.cmdheight = oldcmdheight
-			vim.tbl_map(function(module) pcall(require, module) end, { "nvim-treesitter", "mason" })
-			require("kickstart.utils").notify "Mason is installing packages if configured, check status with `:Mason`"
-		end,
-	})
+  local oldcmdheight = vim.opt.cmdheight:get()
+  vim.opt.cmdheight = 1
+  vim.notify "Please wait while plugins are installed..."
+  
+  vim.api.nvim_create_autocmd("User", {
+    desc = "Load Mason and Treesitter after Lazy installs plugins",
+    once = true,
+    pattern = "LazyInstall",
+    callback = function()
+      vim.cmd.bw()
+      vim.opt.cmdheight = oldcmdheight
+      vim.tbl_map(function(module) pcall(require, module) end, { "nvim-treesitter", "mason" })
+      require("kickstart.utils").notify "Mason is installing packages if configured, check status with `:Mason`"
+    end,
+  })
 end
 vim.opt.rtp:prepend(lazypath)
 
-local spec = basenvim.updater.options.pin_plugins
-		and { { import = basenvim.updater.snapshot.module } }
-	or {}
-vim.list_extend(spec, { { import = "plugins" } })
+local user_plugins = kickstart.user_opts "plugins"
+for _, config_dir in ipairs(kickstart.supported_configs) do
+  if vim.fn.isdirectory(config_dir .. "/lua/user/plugins") == 1 then user_plugins = { import = "user.plugins" } end
+end
 
-local colorscheme = basenvim.default_colorscheme and { basenvim.default_colorscheme } or nil
+local spec = kickstart.updater.options.pin_plugins and { { import = kickstart.updater.snapshot.module } } or {}
+vim.list_extend(spec, { { import = "plugins" }, user_plugins })
 
-require("lazy").setup {
-	spec = spec,
-	defaults = { lazy = true },
-	git = { filter = modern_git },
-	install = { colorscheme = colorscheme },
-	checker = { enabled = true }, -- automatically check for plugin updates
-	performance = {
-		rtp = {
-			paths = basenvim.supported_configs,
-			disabled_plugins = { "tohtml", "gzip", "zipPlugin", "netrwPlugin", "tarPlugin" },
-		},
-	},
-	lockfile = vim.fn.stdpath "data" .. "/lazy-lock.json",
-}
+local colorscheme = kickstart.default_colorscheme and { kickstart.default_colorscheme } or nil
+
+require("lazy").setup(kickstart.user_opts("lazy", {
+  spec = spec,
+  defaults = { lazy = true },
+  git = { filter = modern_git },
+  install = { colorscheme = colorscheme },
+  performance = {
+    rtp = {
+      paths = kickstart.supported_configs,
+      disabled_plugins = { "tohtml", "gzip", "zipPlugin", "netrwPlugin", "tarPlugin" },
+    },
+  },
+  lockfile = vim.fn.stdpath "data" .. "/lazy-lock.json",
+}))
