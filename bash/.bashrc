@@ -1,22 +1,6 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# Load starship prompt if starship is installed
-if  [ -x /usr/bin/starship ]; then
-    __main() {
-        local major="${BASH_VERSINFO[0]}"
-        local minor="${BASH_VERSINFO[1]}"
-
-        if ((major > 4)) || { ((major == 4)) && ((minor >= 1)); }; then
-            source <("/usr/bin/starship" init bash --print-full-init)
-        else
-            source /dev/stdin <<<"$("/usr/bin/starship" init bash --print-full-init)"
-        fi
-    }
-    __main
-    unset -f __main
-fi
-
 # Advanced command-not-found hook
 source /usr/share/doc/find-the-command/ftc.bash
 
@@ -83,7 +67,3 @@ alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 export GPG_TTY=$(tty)
 
 . "$HOME/.cargo/env"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

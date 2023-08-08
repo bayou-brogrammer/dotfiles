@@ -2,7 +2,7 @@
     "dracula": false,
     "Dark Matter": false,
     "ClearVision": false,
-    "Discord+": true,
+    "Discord+": false,
     "SoftX": false,
-    "Zelk": false
+    "Zelk": true
 }
