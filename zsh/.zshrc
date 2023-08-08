@@ -35,51 +35,18 @@ if [ -d "$HOME/.local/bin" ]; then
     export PATH=$HOME/.local/bin:$PATH
 fi
 
-##########
-# DEFER
-##########
-autoload -Uz ~/zsh-defer/zsh-defer
-
 ######################
 # Source custom
 ######################
 source "$ZDOTDIR/config/load.zsh"
 
-# Autoload functions you might want to use with antidote.
+# Autoload functions you might want to use with Zinit.
 ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
 fpath=($ZFUNCDIR $fpath)
 autoload -Uz $fpath[1]/*(.:t)
 
-# Source zstyles you might use with antidote.
+# Source zstyles you might use with Zinit.
 [[ -e ${ZDOTDIR:-~}/.zstyles ]] && source ${ZDOTDIR:-~}/.zstyles
-
-# Clone antidote if necessary.
-# [[ -d ${ZDOTDIR:-~}/.antidote ]] ||
-# git clone https://github.com/mattmc3/antidote ${ZDOTDIR:-~}/.antidote
-
-# #######################################################
-# # Create an amazing Zsh config using antidote plugins.
-# #######################################################
-
-# # Set the name of the static .zsh plugins file antidote will generate.
-# zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins.zsh
-
-# # Ensure you have a .zsh_plugins.txt file where you can add plugins.
-# [[ -f ${zsh_plugins:r}.txt ]] || touch ${zsh_plugins:r}.txt
-
-# # Lazy-load antidote.
-# fpath+=(${ZDOTDIR:-~}/.antidote)
-# autoload -Uz $fpath[-1]/antidote
-
-# # Generate static file in a subshell when .zsh_plugins.txt is updated.
-# if [[ ! $zsh_plugins -nt ${zsh_plugins:r}.txt ]]; then
-#     (antidote bundle <${zsh_plugins:r}.txt >|$zsh_plugins)
-# fi
-
-# autoload -Uz compinit && compinit
-
-# # Source your static plugins file.
-# source $zsh_plugins
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
@@ -93,57 +60,6 @@ fi
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
-
-###################### 
-### Local Plugins
-######################
-zi as'null' lucid sbin wait for \
-  $ZDOTDIR/plugins/magic_enter.plugin.zsh \
-  $ZDOTDIR/plugins/zsh-plugin-fd.plugin.zsh \
-  $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh \
-  $ZDOTDIR/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-    
-
-# Use fzf
-zi as'null' lucid sbin wait for \
-  /usr/share/fzf/key-bindings.zsh \
-  /usr/share/fzf/completion.zsh
-
-###################### 
-### Regular Plugins
-######################
-zinit for \
-    light-mode \
-        mattmc3/zman \
-    light-mode \
-        agkozak/zsh-z \
-    light-mode \
-        rupa/z \
-    light-mode \
-        jeffreytse/zsh-vi-mode \
-    light-mode \
-        icatalina/zsh-navi-plugin \
-    light-mode \
-        iloginow/zsh-paci \
-    light-mode \
-        rummik/zsh-tailf \
-    light-mode \
-     https://github.com/peterhurford/up.zsh 
-
-zi as'null' lucid sbin wait for \
-  icatalina/zsh-navi-plugin \
-
-# Load a few important annexes, without Turbo
-# (this is currently required for annexes)
-zinit light-mode for \
-    zdharma-continuum/zinit-annex-as-monitor \
-    zdharma-continuum/zinit-annex-bin-gem-node \
-    zdharma-continuum/zinit-annex-patch-dl \
-    zdharma-continuum/zinit-annex-rust
-
-# Load powerlevel10k theme
-zinit ice depth"1" # git clone depth
-zinit light romkatv/powerlevel10k
 
 ###################### 
 ### PROGRAMS
@@ -168,6 +84,86 @@ zi light tj/git-extras
 zi ice from"gh-r" as"program" mv"docker* -> docker-compose" bpick"*linux*"
 zi load docker/compose
 
+# Scripts built at install (there's single default make target, "install",
+# and it constructs scripts by `cat'ing a few files). The make'' ice could also be:
+# `make"install PREFIX=$ZPFX"`, if "install" wouldn't be the only default target.
+zi ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"
+zi light tj/git-extras
+
+zi ice from"gh-r" as"program"
+zi light jqlang/jq
+
+zi ice as"program" pick"$ZPFX/bin/sk-tmux"
+zi light lotabout/skim
+
+###################### 
+### Local Plugins
+######################
+# zinit ice wait lucid
+source $ZDOTDIR/plugins/magic_enter.plugin.zsh
+source $ZDOTDIR/plugins/zsh-plugin-fd.plugin.zsh
+
+###################### 
+### Regular Plugins
+######################
+
+zi as'null' lucid wait'1' for \
+  Fakerr/git-recall \
+  davidosomething/git-my \
+  iwata/git-now \
+  paulirish/git-open \
+  paulirish/git-recent \
+    atload'export _MENU_THEME=legacy' \
+  arzzen/git-quick-stats \
+    make'install' \
+  zdharma-continuum/git-url
+
+# ABBR
+zinit ice wait lucid
+zi light olets/zsh-abbr
+
+# Syntax highlighting
+zi light zdharma-continuum/fast-syntax-highlighting
+
+zinit ice wait lucid
+zi light  mattmc3/zman
+
+zinit ice wait lucid
+zi light agkozak/zsh-z
+
+zinit ice wait lucid
+zi light rupa/z
+
+# VIM
+zinit ice wait lucid
+zi light jeffreytse/zsh-vi-mode
+
+zinit ice wait lucid
+zi light icatalina/zsh-navi-plugin
+
+zinit ice wait lucid
+zi light iloginow/zsh-paci
+
+zinit ice wait lucid
+zi light rummik/zsh-tailf
+
+zinit ice wait lucid
+zi light https://github.com/peterhurford/up.zsh 
+
+zi light zsh-users/zsh-history-substring-search
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust \
+    zdharma-continuum/zinit-annex-meta-plugins 
+
+zstyle ":plugin:zconvey" greeting "none"
+zinit for zdharma2 annexes+con zsh-users+fast console-tools ext-git rust-utils
+
 ###################### 
 ### Frameworks
 ######################
@@ -176,6 +172,7 @@ zi load docker/compose
 
 # lib
 zi snippet OMZL::clipboard.zsh
+
 # plugin
 zi snippet OMZP::copybuffer
 zi snippet OMZP::copyfile
@@ -186,7 +183,7 @@ zi snippet OMZP::gh
 zi snippet OMZP::fzf
 zi snippet OMZP::git
 # zi snippet OMZP::gitfast
-zi snippet OMZP::zoxide
+# zi snippet OMZP::zoxide
 zi snippet OMZP::archlinux
 zi snippet OMZP::git-extras
 
@@ -199,40 +196,11 @@ zi snippet OMZP::ssh-agent
 zi snippet OMZP::fancy-ctrl-z
 zi snippet OMZP::command-not-found
 zi snippet OMZP::colored-man-pages
-zi snippet OMZP::history-substring-search
+# zi snippet OMZP::history-substring-search
 
 # ===== Framework: zsh-utils ===== #
 zinit snippet https://github.com/belak/zsh-utils/blob/main/history/history.plugin.zsh
 zinit snippet https://github.com/belak/zsh-utils/blob/main/utility/utility.plugin.zsh
-
-###################### 
-### Deferred Plugins
-######################
-# ABBR
-zinit ice wait
-zi light olets/zsh-abbr
-
-# VIM
-zinit ice wait
-zi light jeffreytse/zsh-vi-mode
-
-# Syntax highlighting
-zinit ice wait
-zi light zdharma-continuum/fast-syntax-highlighting
-
-zi as'null' lucid sbin wait'1' for \
-  Fakerr/git-recall \
-  davidosomething/git-my \
-  iwata/git-now \
-  paulirish/git-open \
-  paulirish/git-recent \
-    atload'export _MENU_THEME=legacy' \
-  arzzen/git-quick-stats \
-    make'install' \
-  tj/git-extras \
-    make'GITURL_NO_CGITURL=1' \
-    sbin'git-url;git-guclone' \
-  zdharma-continuum/git-url
 
 ###################### 
 ### Utilities
@@ -242,8 +210,28 @@ zi light romkatv/zsh-bench
 ###################### 
 ### Local Completions
 ######################
-zi creinstall ${ASDF_DIR}/completions
-zi creinstall /usr/share/zsh/site-functions
+zi for \
+    atload"zicompinit; zicdreplay" \
+    blockf \
+    lucid \
+    wait \
+  ${ASDF_DIR}/completions
+
+# zi for \
+#     atload"zicompinit; zicdreplay" \
+#     blockf \
+#     lucid \
+#     wait \
+#   /usr/share/fzf/completion.zsh
+
+# ziinit for \
+#     atload"zicompinit; zicdreplay" \
+#     blockf \
+#     lucid \
+#     wait \
+#     zi snippet https://github.com/belak/zsh-utils/blob/main/completion/completion.plugin.zsh
+
+zinit ice as'completion'
 zinit snippet https://github.com/belak/zsh-utils/blob/main/completion/completion.plugin.zsh
 
 ###################### 
@@ -251,6 +239,19 @@ zinit snippet https://github.com/belak/zsh-utils/blob/main/completion/completion
 ######################
 # These popular core plugins should be loaded at the end
 zinit light mattmc3/zfunctions
+
+###################### 
+### Mappings
+######################
+# fzf
+zinit load /usr/share/fzf/key-bindings.zsh
+source "$ZDOTDIR/config/mappings"
+
+###################### 
+### Theme + Prompt
+######################
+zinit ice depth"1" # git clone depth
+zinit light romkatv/powerlevel10k
 
 # Last thing is load the prompt
 source $ZDOTDIR/plugins/prompts/load.zsh

@@ -66,30 +66,5 @@ return {
         buftypes = {}, -- buffer types to ignore sessions
       },
     },
-
-    -- Configuration of vim mappings to create
-    mappings = {
-      -- map mode (:h map-modes)
-      n = {
-        -- use vimscript strings for mappings
-        ["<C-s>"] = { ":w!<cr>", desc = "Save File" },
-        -- navigate buffer tabs with `H` and `L`
-        L = {
-          function()
-            require("astrocore.buffer").nav(vim.v.count > 0 and vim.v.count or 1)
-          end,
-          desc = "Next buffer",
-        },
-        H = {
-          function()
-            require("astrocore.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1))
-          end,
-          desc = "Previous buffer",
-        },
-        -- tables with just a `desc` key will be registered with which-key if it's installed
-        -- this is useful for naming menus
-        ["<leader>b"] = { desc = "Buffers" },
-      },
-    },
   },
 }
