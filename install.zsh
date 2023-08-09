@@ -8,6 +8,8 @@ esac
 shift
 done
 
+# 2> >(grep -v 'BUG in find_stowed_path? Absolute/relative mismatch' 1>&2)
+
 function debug() { 
   [ -z "$verbose" ] && echo $1 
 }
