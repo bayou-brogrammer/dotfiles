@@ -44,3 +44,5 @@ vim.opt.viewoptions:remove("curdir") -- disable saving current directory with vi
 vim.opt.virtualedit = "block" -- allow going past end of line in visual block mode
 vim.opt.wrap = false -- disable wrapping of lines longer than the width of window
 vim.opt.writebackup = false -- disable making a backup before overwriting a file
+
+vim.opt.background = "dark" -- set this to dark or light

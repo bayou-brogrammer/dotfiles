@@ -1,5 +1,19 @@
 -- Example customization of mason plugins
 return {
+  {
+    "williamboman/mason.nvim",
+    opts = function(_, opts)
+      -- add more things to the ensure_installed table protecting against community packs modifying it
+      opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, {
+        "stylua",
+        "ocamllsp",
+        "tsserver",
+        "eslint_d",
+        "shellcheck",
+      })
+    end,
+  },
+
   -- use mason-lspconfig to configure LSP installations
   {
     "williamboman/mason-lspconfig.nvim",
@@ -8,7 +22,7 @@ return {
       -- add more things to the ensure_installed table protecting against community packs modifying it
       opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, {
         "lua_ls",
-        "ocaml",
+        "ocamllsp",
         "tsserver",
       })
     end,
@@ -22,9 +36,11 @@ return {
       -- add more things to the ensure_installed table protecting against community packs modifying it
       opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, {
         "prettierd",
-        "prettierd",
         "eslintd",
         "stylua",
+        "tsserver",
+        "eslint_d",
+        "ocamlformat",
       })
     end,
   },
@@ -34,7 +50,7 @@ return {
     -- overrides `require("mason-nvim-dap").setup(...)`
     opts = function(_, opts)
       -- add more things to the ensure_installed table protecting against community packs modifying it
-      opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, {})
+      opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "js-debug-adapter" })
     end,
   },
 }

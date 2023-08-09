@@ -1,4 +1,4 @@
--- bootstrap lazy.nvim, LazyVim and your plugins
+-- bootstrap
 require("config.lazy")
 -- run polish file at the very end
 pcall(require, "config.polish")
