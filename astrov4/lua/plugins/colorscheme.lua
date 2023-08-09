@@ -1,6 +1,8 @@
 return {
+  -- onedark
   { "nyoom-engineering/oxocarbon.nvim", lazy = true },
 
+  -- starry
   { "ray-x/starry.nvim", lazy = true },
 
   -- onedark
@@ -26,9 +28,14 @@ return {
   -- catppuccin
   {
     "catppuccin/nvim",
-    lazy = true,
+    priority = 1000,
     name = "catppuccin",
     opts = {
+      flavour = "frappe", -- latte, frappe, macchiato, mocha
+      background = { -- :h background
+        light = "latte",
+        dark = "mocha",
+      },
       integrations = {
         alpha = true,
         cmp = true,

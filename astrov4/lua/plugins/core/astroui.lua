@@ -5,7 +5,7 @@ return {
   ---@type AstroUIConfig
   opts = {
     -- Colorscheme set on startup, a string that is used with `:colorscheme astrodark`
-    colorscheme = "starry",
+    colorscheme = "catppuccin",
 
     -- Override highlights in any colorscheme
     -- Keys can be:
