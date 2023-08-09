@@ -217,19 +217,19 @@ zi for \
     wait \
   ${ASDF_DIR}/completions
 
-# zi for \
-#     atload"zicompinit; zicdreplay" \
-#     blockf \
-#     lucid \
-#     wait \
-#   /usr/share/fzf/completion.zsh
+zi for \
+    atload"zicompinit; zicdreplay" \
+    blockf \
+    lucid \
+    wait \
+  /usr/share/fzf
 
 # ziinit for \
 #     atload"zicompinit; zicdreplay" \
 #     blockf \
 #     lucid \
 #     wait \
-#     zi snippet https://github.com/belak/zsh-utils/blob/main/completion/completion.plugin.zsh
+#     zi snippet https://github.com/belak/zsh-utils/blob/main/completion
 
 zinit ice as'completion'
 zinit snippet https://github.com/belak/zsh-utils/blob/main/completion/completion.plugin.zsh

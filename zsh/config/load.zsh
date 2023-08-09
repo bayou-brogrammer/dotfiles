@@ -7,6 +7,10 @@ function set_win_title(){
 }
 precmd_functions+=(set_win_title)
 
+export PAGER="bat"
+export EDITOR="nvim"
+export VISUAL="nvim"
+export BROWSER="google-chrome-stable"
 export BAT_THEME="Monokai Extended Light"
 
 ##################
@@ -14,7 +18,6 @@ export BAT_THEME="Monokai Extended Light"
 ##################
 
 source "$ZDOTDIR/config/aliases"
-# source "$ZDOTDIR/config/mappings"
 source "$ZDOTDIR/config/options"
 
 #ASDF
