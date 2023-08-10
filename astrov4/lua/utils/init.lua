@@ -2,6 +2,15 @@ local M = {}
 
 M.lsp = require("utils.lsp")
 
+M.map = function(mode, lhs, rhs, opts)
+  if lhs == "" then
+    return
+  end
+
+  opts = vim.tbl_deep_extend("force", { silent = true }, opts or {})
+  vim.keymap.set(mode, lhs, rhs, opts)
+end
+
 ---@param name string
 function M.opts(name)
   local plugin = require("lazy.core.config").plugins[name]

@@ -9,6 +9,7 @@ end
 
 local minifiles_toggle = function(...)
   if not require("mini.files").close() then
+    vim.inspect(...)
     require("mini.files").open(...)
   end
 end
@@ -67,17 +68,6 @@ return {
     },
     init = function()
       vim.api.nvim_create_autocmd("User", {
-        pattern = "MiniFilesWindowOpen",
-        callback = function(args)
-          local win_id = args.data.win_id
-
-          -- Customize window-local settings
-          -- vim.wo[win_id].winblend = 50
-          -- vim.api.nvim_win_set_config(win_id, { border = "double" })
-        end,
-      })
-
-      vim.api.nvim_create_autocmd("User", {
         pattern = "MiniFilesBufferCreate",
         callback = function(args)
           vim.keymap.set("n", "g~", files_set_cwd, { buffer = args.data.buf_id, desc = "Set CWD" })
@@ -87,13 +77,27 @@ return {
       vim.api.nvim_create_autocmd("User", {
         pattern = "MiniFilesBufferCreate",
         callback = function(args)
+          vim.inspect(args)
           local buf_id = args.data.buf_id
           -- Tweak keys to your liking
-          map_split(buf_id, "gs", "belowright horizontal")
           map_split(buf_id, "gv", "belowright vertical")
+          map_split(buf_id, "gs", "belowright horizontal")
         end,
       })
     end,
+
+    config = function(_, opts)
+      local utils = require("utils")
+      local MiniFiles = require("mini.files")
+
+      local buf_map = function(mode, lhs, rhs, desc)
+        -- Use `nowait` to account for non-buffer mappings starting with `lhs`
+        utils.map(mode, lhs, rhs, { desc = desc, nowait = true })
+      end
+
+      buf_map("n", "<CR>", MiniFiles.open(vim.api.nvim_buf_get_name(0), false), "Close")
+    end,
+
     opts = {
       -- Customization of shown content
       content = {

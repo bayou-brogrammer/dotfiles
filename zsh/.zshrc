@@ -65,8 +65,8 @@ autoload -Uz _zinit
 ### PROGRAMS
 ######################
 
-# Binary release in archive, from GitHub-releases page.
-# After automatic unpacking it provides program "fzf".
+Binary release in archive, from GitHub-releases page.
+After automatic unpacking it provides program "fzf".
 zi ice from"gh-r" as"program"
 zi light junegunn/fzf
 
@@ -96,16 +96,16 @@ zi light jqlang/jq
 zi ice as"program" pick"$ZPFX/bin/sk-tmux"
 zi light lotabout/skim
 
-###################### 
-### Local Plugins
-######################
-# zinit ice wait lucid
+##################### 
+## Local Plugins
+#####################
+zinit ice wait lucid
 source $ZDOTDIR/plugins/magic_enter.plugin.zsh
 source $ZDOTDIR/plugins/zsh-plugin-fd.plugin.zsh
 
-###################### 
-### Regular Plugins
-######################
+##################### 
+## Regular Plugins
+#####################
 
 zi as'null' lucid wait'1' for \
   Fakerr/git-recall \
@@ -134,7 +134,7 @@ zi light agkozak/zsh-z
 zinit ice wait lucid
 zi light rupa/z
 
-# VIM
+VIM
 zinit ice wait lucid
 zi light jeffreytse/zsh-vi-mode
 
@@ -162,18 +162,18 @@ zinit light-mode for \
     zdharma-continuum/zinit-annex-meta-plugins 
 
 zstyle ":plugin:zconvey" greeting "none"
-zinit for zdharma2 annexes+con zsh-users+fast console-tools ext-git rust-utils
+zinit for zdharma2 annexes+con zsh-users+fast console-tools rust-utils
 
-###################### 
-### Frameworks
-######################
+##################### 
+## Frameworks
+#####################
 
 # ===== Framework: Oh-My-Zsh ===== #
 
-# lib
+lib
 zi snippet OMZL::clipboard.zsh
 
-# plugin
+plugin
 zi snippet OMZP::copybuffer
 zi snippet OMZP::copyfile
 zi snippet OMZP::copypath
@@ -202,14 +202,14 @@ zi snippet OMZP::colored-man-pages
 zinit snippet https://github.com/belak/zsh-utils/blob/main/history/history.plugin.zsh
 zinit snippet https://github.com/belak/zsh-utils/blob/main/utility/utility.plugin.zsh
 
-###################### 
-### Utilities
-######################
+##################### 
+## Utilities
+#####################
 zi light romkatv/zsh-bench
 
-###################### 
-### Local Completions
-######################
+##################### 
+## Local Completions
+#####################
 zi for \
     atload"zicompinit; zicdreplay" \
     blockf \
@@ -222,7 +222,7 @@ zi for \
     blockf \
     lucid \
     wait \
-  /usr/share/fzf
+  ${HOME}/.local/share/fzf
 
 # ziinit for \
 #     atload"zicompinit; zicdreplay" \
@@ -244,7 +244,7 @@ zinit light mattmc3/zfunctions
 ### Mappings
 ######################
 # fzf
-zinit load /usr/share/fzf/key-bindings.zsh
+zinit load ${HOME}/.local/share/fzf/key-bindings.zsh
 source "$ZDOTDIR/config/mappings"
 
 ###################### 

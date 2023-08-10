@@ -85,7 +85,7 @@
 [user]
     email = lecoqjacob@gmail.com
 	name = Yendor
-	signingkey = 9ACFF95F46551790
+	signingkey = 543992DBAEDE9DE
 
 [hub]
     protocol = ssh

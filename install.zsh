@@ -27,36 +27,20 @@ function assign(){
 
     debug "Assigning $program to $path"
 
-    local has_sudo=""
     # Create path if it doesn't exist
     if [ ! -d "$path" ]; then
       debug "Creating $path"
-      
-      if [ -w "$path" ]; then
-        mkdir "$path"
-      else
-        sudo mkdir "$path" && has_sudo=true
-      fi
+      mkdir "$path"
     fi
 
     # Assign program to path
-    if [ -w "$path" ]; then
-      debug "Stowing $program to $path"
-      stow $program -t "$path" || echo "Error: Stow failed to assign to $path/$program"
-    else
-      if [ -z "$has_sudo" ] || [ "$has_sudo" = true ]; then
-        debug "Stowing $program to $path as sudo"
-        sudo stow $program -t "$path" || echo "Error: Stow failed to assign to $path/$program"
-      else
-        echo "Error: $program not assigned to $path because you are not a sudoer."
-      fi
-    fi
+    stow $program -t "$path" || echo "Error: Stow failed to assign to $path/$program"
 }
 
 ##################
 # Assign Programs
 ##################
-stow bash cargo discord git images
+# stow bash cargo discord git images
 
 assign alacritty
 assign bpytop
@@ -69,14 +53,14 @@ assign wezterm
 assign zellij
 assign zsh
 
-# FZF
-assign fzf ~/.local/share
+# # FZF
+# assign fzf ~/.local/share
 
-##################
-# Fonts
-##################
-if [ ! -d "/usr/share/fonts" ]; then
-  sudo mkdir "/usr/share/fonts" && assign fonts "/usr/share/fonts"
-else
-  sudo cp -r fonts/* "/usr/share/fonts"
-fi
+# ##################
+# # Fonts
+# ##################
+# if [ ! -d "/usr/share/fonts" ]; then
+#   sudo mkdir "/usr/share/fonts" && assign fonts "/usr/share/fonts"
+# else
+#   sudo cp -r fonts/* "/usr/share/fonts"
+# fi

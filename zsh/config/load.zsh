@@ -2,6 +2,8 @@
 # Internal Config
 ##################
 
+export PATH=$PATH:/usr/local/bin
+
 function set_win_title(){
     echo -ne "\033]0; $USER@$HOST:${PWD/$HOME/~} \007"
 }
@@ -13,6 +15,8 @@ export VISUAL="nvim"
 export BROWSER="google-chrome-stable"
 export BAT_THEME="Monokai Extended Light"
 
+echo "Loading ZSH config..."
+
 ##################
 # Load Internals
 ##################
@@ -21,7 +25,14 @@ source "$ZDOTDIR/config/aliases"
 source "$ZDOTDIR/config/options"
 
 #ASDF
-. "$HOME/.asdf/asdf.sh"
+case "$OSTYPE" in
+  darwin*)
+    . /opt/homebrew/bin/asdf
+  ;;
+  linux*)
+   . "$HOME/.asdf/asdf.sh"
+  ;;
+esac
 
 # fnm
 export PATH="/home/yendor/.local/share/fnm:$PATH"
