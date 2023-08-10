@@ -25,6 +25,46 @@ require("lazy").setup({
     -- AstroCommunity import any community modules here
     { "AstroNvim/astrocommunity", branch = "v4" },
 
+    -- BARS & LINES
+    { import = "astrocommunity.bars-and-lines.scope-nvim" },
+    { import = "astrocommunity.bars-and-lines.dropbar-nvim" },
+    { import = "astrocommunity.bars-and-lines.statuscol-nvim" },
+    { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
+
+    -- COLOR
+    { import = "astrocommunity.color.tint-nvim" },
+    { import = "astrocommunity.color.modes-nvim" },
+    { import = "astrocommunity.color.headlines-nvim" },
+
+    -- DEBUGGING
+    { import = "astrocommunity.debugging.nvim-bqf" },
+
+    -- DIAGNOSTICS
+    { import = "astrocommunity.diagnostics.lsp_lines-nvim" },
+
+    -- EDITING SUPPORT
+    { import = "astrocommunity.editing-support.vim-move" },
+    { import = "astrocommunity.editing-support.comment-box-nvim" },
+    { import = "astrocommunity.editing-support.comment-box-nvim" },
+
+    { import = "astrocommunity.git.neogit" },
+    { import = "astrocommunity.git.diffview-nvim" },
+    { import = "astrocommunity.git.git-blame-nvim" },
+
+    { import = "astrocommunity.motion.harpoon" },
+    { import = "astrocommunity.motion.mini-move" },
+    { import = "astrocommunity.motion.mini-basics" },
+    { import = "astrocommunity.motion.nvim-spider" },
+    { import = "astrocommunity.motion.mini-bracketed" },
+
+    { import = "astrocommunity.terminal-integration.vim-tmux-yank" },
+
+    { import = "astrocommunity.utility.telescope-fzy-native-nvim" },
+    { import = "astrocommunity.utility.telescope-live-grep-args-nvim" },
+
+    -- TODO: Should probably remove this
+    { import = "astrocommunity.workflow.bad-practices-nvim" },
+
     { import = "plugins" }, -- import/override with your plugins
   }),
   defaults = {

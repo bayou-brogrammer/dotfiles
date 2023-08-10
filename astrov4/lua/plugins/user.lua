@@ -3,13 +3,10 @@
 
 -- You can also add new plugins here as well using the lazy syntax:
 return {
-  "andweeb/presence.nvim",
+  { "andweeb/presence.nvim", event = "VeryLazy", opts = { client_id = "1009122352916857003" } },
 
   -- Train your mind
   { "tjdevries/train.nvim" },
-
-  -- Hop
-  { "phaazon/hop.nvim" },
 
   -- Best CD Eva
   { "nanotee/zoxide.vim" },

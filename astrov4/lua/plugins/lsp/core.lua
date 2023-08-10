@@ -44,12 +44,36 @@ return {
         hint_inline = function()
           return false
         end,
+
+        hint_enable = false, -- disable hints as it will crash in some terminal
       })
     end,
   },
 
   {
     "lvimuser/lsp-inlayhints.nvim",
+    init = function()
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("LspAttach_inlayhints", {}),
+        callback = function(args)
+          if not (args.data and args.data.client_id) then
+            return
+          end
+
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if client.server_capabilities.inlayHintProvider then
+            local inlayhints = require("lsp-inlayhints")
+            inlayhints.on_attach(client, args.buf)
+
+            require("astrocore").set_mappings({
+              n = {
+                ["<leader>uH"] = { inlayhints.toggle, desc = "Toggle inlay hints" },
+              },
+            }, { buffer = args.buf })
+          end
+        end,
+      })
+    end,
     config = function()
       require("lsp-inlayhints").setup({
         inlay_hints = {
@@ -84,21 +108,16 @@ return {
         enabled_at_startup = true,
         debug_mode = false,
       })
-
-      vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
-      vim.api.nvim_create_autocmd("LspAttach", {
-        group = "LspAttach_inlayhints",
-        callback = function(args)
-          print("LspAttach_inlayhints", vim.inspect(args))
-          if not (args.data and args.data.client_id) then
-            return
-          end
-
-          local bufnr = args.buf
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-          require("lsp-inlayhints").on_attach(client, bufnr)
-        end,
-      })
     end,
+  },
+  {
+    "p00f/clangd_extensions.nvim",
+    optional = true,
+    opts = { extensions = { autoSetHints = false } },
+  },
+  {
+    "simrat39/rust-tools.nvim",
+    optional = true,
+    opts = { tools = { inlay_hints = { auto = false } } },
   },
 }

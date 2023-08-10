@@ -6,23 +6,24 @@ return {
     mappings = {
       -- first key is the mode
       n = {
-        -- second key is the lefthand side of the map
+        w = false,
+        e = false,
+        f = false,
+        b = false,
 
-        -- navigate buffer tabs with `H` and `L`
-        L = {
-          function()
-            require("astrocore.buffer").nav(vim.v.count > 0 and vim.v.count or 1)
-          end,
-          desc = "Next buffer",
-        },
-        H = {
-          function()
-            require("astrocore.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1))
-          end,
-          desc = "Previous buffer",
-        },
+        --[[
+          ############
+          GENERAL
+          ###########
+        --]]
+        ["<C-s>"] = { ":w!<cr>", desc = "Save File" }, -- change description but the same command
+        ["<leader>gB"] = { ":GitBlameToggle<cr>", desc = "Toggle git Blame" }, -- change description but the same command
 
-        -- mappings seen under group name "Buffer"
+        --[[
+          ############
+          BUFFERS
+          ###########
+        --]]
         ["<leader>bD"] = {
           function()
             require("astroui.status.heirline").buffer_picker(function(bufnr)
@@ -36,8 +37,20 @@ return {
         -- this is useful for naming menus
         ["<leader>b"] = { desc = "Buffers" },
 
+        L = {
+          function()
+            require("astrocore.buffer").nav(vim.v.count > 0 and vim.v.count or 1)
+          end,
+          desc = "Next buffer",
+        },
+        H = {
+          function()
+            require("astrocore.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1))
+          end,
+          desc = "Previous buffer",
+        },
+
         -- quick save
-        ["<C-s>"] = { ":w!<cr>", desc = "Save File" }, -- change description but the same command
       },
       t = {
         -- setting a mapping to false will disable it

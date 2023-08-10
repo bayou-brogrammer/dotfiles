@@ -1,22 +1,64 @@
 return {
-  -- onedark
+  -- kanagawa
+  -- { "rebelot/kanagawa.nvim", lazy = true },
+
+  -- oxocarbon
   { "nyoom-engineering/oxocarbon.nvim", lazy = true },
 
   -- starry
   { "ray-x/starry.nvim", lazy = true },
 
-  -- onedark
-  { "navarasu/onedark.nvim", opts = { style = "darker" }, lazy = true },
+  {
+    "olimorris/onedarkpro.nvim",
+    opts = {
+      options = {
+        highlight_inactive_windows = true,
+      },
+    },
+  },
 
-  -- onedarker
+  -- mini
+  {
+    "echasnovski/mini.base16",
+    lazy = true,
+    {
+      "catppuccin/nvim",
+      optional = true,
+      opts = { integrations = { mini = true } },
+    },
+  },
+
+  -- -- onedarker
   { "lunarvim/Onedarker.nvim", lazy = true },
 
-  -- Nightfox
-  -- Carbonfox
   -- Terafox
   -- Nordfox
   -- Duskfox
-  { "EdenEast/nightfox.nvim", lazy = true },
+  {
+    "EdenEast/nightfox.nvim",
+    lazy = true,
+    opts = {
+      options = {
+        module_default = false,
+        modules = {
+          aerial = true,
+          cmp = true,
+          ["dap-ui"] = true,
+          dashboard = true,
+          diagnostic = true,
+          gitsigns = true,
+          native_lsp = true,
+          neotree = true,
+          notify = true,
+          symbol_outline = true,
+          telescope = true,
+          treesitter = true,
+          whichkey = true,
+        },
+      },
+      groups = { all = { NormalFloat = { link = "Normal" } } },
+    },
+  },
 
   -- tokyonight
   {
@@ -39,7 +81,7 @@ return {
       integrations = {
         alpha = true,
         cmp = true,
-        flash = true,
+        flash = false,
         gitsigns = true,
         illuminate = true,
         indent_blankline = { enabled = true },
